@@ -76,7 +76,8 @@ Gameplay was recorded from the actual Android TV emulator build using scripted
 controllers. Controller-interface footage uses synthetic motion readings for the
 walkthrough. This is not footage of physical iPad testing. Music was added in editing.
 
-Do not add a public download or repository link until its access and release
-status are intentional. The public code release is being prepared; confirm visibility before linking it. Upload these
+The code repository is public and MIT-licensed, with separately licensed assets:
+https://github.com/LethalMaus/DontGoToBed---TinyRacers
+Upload these
 edits after adding and checking James's voiceover; choose YouTube audience settings
 based on the final video's intended audience, not an assumed age rating.

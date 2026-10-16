@@ -1,0 +1,18 @@
+Don't Go To Bed: Tiny Racers — audio credits
+
+Music composed by Liborio Conti.
+Race music: Upbeat Drums (original game's panic.mp3; confirmed by ID3 metadata).
+Lobby/results: original game's menu.mp3 (track title absent from embedded metadata).
+https://www.no-copyright-music.com/
+https://www.no-copyright-music.com/license/
+
+Sound effects sourced from Pixabay, according to the original game's AudioCredits.kt.
+jump.mp3, hit.mp3, place.mp3, arrow.mp3, damage_taken.mp3, drink.mp3, turn.mp3
+https://pixabay.com/sound-effects/
+https://pixabay.com/service/license-summary/
+Individual effect creators/download URLs are not recorded in the source metadata.
+
+Reused at the project owner's explicit request from:
+DontGoToBed/composeApp/src/commonMain/composeResources/files/audio/
+Original checkout is unchanged. Files are bundled for local gameplay, not offered
+as standalone downloads or relicensed as MIT. See PROVENANCE.json for hashes.

@@ -1,0 +1,125 @@
+{
+  "duration": 150,
+  "segments": [
+    {
+      "kind": "game",
+      "source": "dining",
+      "start": 0,
+      "duration": 6,
+      "label": "YOUR PHONE BECOMES YOUR STEERING WHEEL.",
+      "sourceStart": 48
+    },
+    {
+      "kind": "card",
+      "source": "hackathon",
+      "duration": 6,
+      "start": 6
+    },
+    {
+      "kind": "game",
+      "source": "lobby",
+      "start": 12,
+      "duration": 4,
+      "label": "ANDROID TV EMULATOR",
+      "sourceStart": 1
+    },
+    {
+      "kind": "phone",
+      "source": "controller",
+      "start": 16,
+      "duration": 8,
+      "label": "SCAN THE TV\u2019S QR CODE",
+      "sourceStart": 0
+    },
+    {
+      "kind": "phone",
+      "source": "controller",
+      "start": 24,
+      "duration": 11,
+      "label": "CHOOSE A TRACK AND 1\u20133 LAPS",
+      "sourceStart": 8
+    },
+    {
+      "kind": "phone",
+      "source": "controller",
+      "start": 35,
+      "duration": 11,
+      "label": "LOCK ROTATION \u00b7 READY \u00b7 HOLD STRAIGHT",
+      "sourceStart": 19
+    },
+    {
+      "kind": "game",
+      "source": "dining",
+      "start": 46,
+      "duration": 12,
+      "label": "FOUR RACERS. ONE SHARED SCREEN.",
+      "sourceStart": 7
+    },
+    {
+      "kind": "game",
+      "source": "dining",
+      "start": 58,
+      "duration": 13,
+      "label": "RAMPS, BOOSTERS AND TOY WEAPONS",
+      "sourceStart": 27
+    },
+    {
+      "kind": "game",
+      "source": "garden",
+      "start": 71,
+      "duration": 12,
+      "label": "THE GARDEN",
+      "sourceStart": 23
+    },
+    {
+      "kind": "game",
+      "source": "bedroom",
+      "start": 83,
+      "duration": 14,
+      "label": "BEDROOM HAIRPINS",
+      "sourceStart": 20
+    },
+    {
+      "kind": "game",
+      "source": "dining",
+      "start": 97,
+      "duration": 12,
+      "label": "CATCH UP BEFORE YOU\u2019RE OUT",
+      "sourceStart": 31
+    },
+    {
+      "kind": "phone",
+      "source": "controller",
+      "start": 109,
+      "duration": 16,
+      "label": "PAUSE \u00b7 AUTOMATIC ITEMS \u00b7 GENTLE STEERING",
+      "sourceStart": 39
+    },
+    {
+      "kind": "card",
+      "source": "architecture",
+      "duration": 10,
+      "start": 125
+    },
+    {
+      "kind": "game",
+      "source": "bedroom",
+      "start": 135,
+      "duration": 7,
+      "label": "POINTS DECIDE THE FINAL STANDINGS",
+      "sourceStart": 241
+    },
+    {
+      "kind": "card",
+      "source": "finish",
+      "duration": 4,
+      "start": 142
+    },
+    {
+      "kind": "card",
+      "source": "credits",
+      "duration": 4,
+      "start": 146
+    }
+  ]
+}

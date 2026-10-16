@@ -1,0 +1,87 @@
+{
+  "duration": 60,
+  "segments": [
+    {
+      "kind": "game",
+      "source": "dining",
+      "start": 0,
+      "duration": 5,
+      "label": "A LITTLE FAMILY COMPETITION.",
+      "sourceStart": 27
+    },
+    {
+      "kind": "card",
+      "source": "trailer",
+      "duration": 4,
+      "start": 5
+    },
+    {
+      "kind": "game",
+      "source": "dining",
+      "start": 9,
+      "duration": 6,
+      "label": "TAKE THE LEAP.",
+      "sourceStart": 8
+    },
+    {
+      "kind": "game",
+      "source": "garden",
+      "start": 15,
+      "duration": 6,
+      "label": "TAKE THE GARDEN.",
+      "sourceStart": 25
+    },
+    {
+      "kind": "game",
+      "source": "bedroom",
+      "start": 21,
+      "duration": 6,
+      "label": "TAKE THE TIGHT TURN.",
+      "sourceStart": 14
+    },
+    {
+      "kind": "game",
+      "source": "dining",
+      "start": 27,
+      "duration": 6,
+      "label": "PLAY A LITTLE DIRTY.",
+      "sourceStart": 48
+    },
+    {
+      "kind": "game",
+      "source": "dining",
+      "start": 33,
+      "duration": 6,
+      "label": "MAKE ROOM FOR MAMMY.",
+      "sourceStart": 79
+    },
+    {
+      "kind": "game",
+      "source": "garden",
+      "start": 39,
+      "duration": 5,
+      "label": "LAST RACER STANDING SCORES.",
+      "sourceStart": 58
+    },
+    {
+      "kind": "game",
+      "source": "bedroom",
+      "start": 44,
+      "duration": 6,
+      "label": "ONE SHARED SCREEN. FOUR RIVALS.",
+      "sourceStart": 45
+    },
+    {
+      "kind": "card",
+      "source": "finish",
+      "duration": 7,
+      "start": 50
+    },
+    {
+      "kind": "card",
+      "source": "credits",
+      "duration": 3,
+      "start": 57
+    }
+  ]
+}

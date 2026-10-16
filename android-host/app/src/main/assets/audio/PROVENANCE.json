@@ -1,0 +1,26 @@
+{
+  "source": "DontGoToBed/composeApp/src/commonMain/composeResources/files/audio",
+  "authorization": "User requested reuse of original game audio on 2026-10-12. Local app build; original checkout untouched.",
+  "creditsEvidence": "DontGoToBed/composeApp/src/commonMain/kotlin/dev/jamescullimore/dontgotobed/AudioCredits.kt",
+  "music": {
+    "composer": "Liborio Conti",
+    "raceTrack": "Upbeat Drums (panic.mp3, verified ID3 title)",
+    "license": "https://www.no-copyright-music.com/license/"
+  },
+  "effects": {
+    "source": "Pixabay per original game credits",
+    "license": "https://pixabay.com/service/license-summary/",
+    "note": "Individual effect creator/download pages are not present in original metadata; do not invent them."
+  },
+  "files": {
+    "menu.mp3": "7924d14f6e6c2c9775cfa6b6a47997494a8619ba245225c2f3f8ab09417ecd63",
+    "panic.mp3": "3601e332cd1e333397e28041c0b8fb8d69ffe523f4b29079a1728d98e14b0f8c",
+    "jump.mp3": "3409d7d68d073de87f4b44983457955589c4868ed1009632f6e76244e3531a80",
+    "hit.mp3": "20b5872beb74a235da3c65860c0f8030ce81dfaaa5ea025c1d59340a5a4fea84",
+    "place.mp3": "cf4a2df773a193ccb985aaa1b08f20c202acfe1c0d6f7e9a07b4ff74472029b1",
+    "arrow.mp3": "5b3fd4fd824031ed33b27df338777a3637327e59d48bb4ae1cc0ed6ed5d26e27",
+    "damage_taken.mp3": "ec364e57b59e2f7e84b6202cdf46baa17beb7e3eaa143c6434c83cff3f70c960",
+    "drink.mp3": "12752dae67e0b020bb301eff3cbede60e2babda9cd0c4db6ae7b7d5ba63c0c86",
+    "turn.mp3": "0e0357e620059de4e03ff8344ba50ef65a636d079623795fc009726e85bb31a9"
+  }
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "order": 1,
+    "file": "01-ramp-battle.png",
+    "title": "Ramp battle",
+    "identify": "Four cars bunched together over a wooden ramp, with a ruler above the road.",
+    "caption": "Four racers, one crowded ramp. Bump your rivals and try to stick the landing."
+  },
+  {
+    "order": 2,
+    "file": "02-tv-lobby.png",
+    "title": "Choose your race",
+    "identify": "Three track outlines above four characters; QR code and ONLINE on the right.",
+    "caption": "Choose from three household-inspired tracks and join from your phone or tablet by scanning the TV’s QR code."
+  },
+  {
+    "order": 3,
+    "file": "03-controller-ready.png",
+    "title": "Your phone is your wheel",
+    "identify": "Tall phone screen with character choices, rotation-lock reminder and yellow Ready button.",
+    "caption": "Choose your racer, lock screen rotation and tap Ready. No controller app to install."
+  },
+  {
+    "order": 4,
+    "file": "04-bedroom.png",
+    "title": "Bedroom racing",
+    "identify": "Bright orange bend with large red building blocks and four racers.",
+    "caption": "Race around the bedroom’s toy track, with tight turns, building-block obstacles and booster pads."
+  },
+  {
+    "order": 5,
+    "file": "05-garden.png",
+    "title": "Garden racing",
+    "identify": "Green grass, ladybird on the left, basketball above the bend and a wooden ramp below.",
+    "caption": "Take the race outside: garden bends, oversized obstacles and a ramp to mix things up."
+  },
+  {
+    "order": 6,
+    "file": "06-dining-table.png",
+    "title": "Tabletop power-ups",
+    "identify": "Brown table, Story Time book, turquoise booster and pink boxing glove beside two cars.",
+    "caption": "Collect power-ups and boost across the dining table. The extending boxing glove gives overtaking a helping hand."
+  },
+  {
+    "order": 7,
+    "file": "07-controller-options.png",
+    "title": "Controls for the family",
+    "identify": "Tall phone screen headed Player 2 paused, with checkboxes and steering sensitivity at 50%.",
+    "caption": "Automatic items, shake-to-use and adjustable steering sensitivity help different ages play together."
+  },
+  {
+    "order": 8,
+    "file": "08-final-standings.png",
+    "title": "Family bragging rights",
+    "identify": "Final standings with Daddy first, Mammy second, Leo third and Ian fourth.",
+    "caption": "Points decide the winner. There’s always time for one more race before bed."
+  }
+]

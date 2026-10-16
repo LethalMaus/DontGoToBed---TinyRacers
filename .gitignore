@@ -1,0 +1,77 @@
+# macOS and editor state
+.DS_Store
+.AppleDouble/
+._*
+.idea/
+.vscode/
+*.iml
+*.swp
+*~
+
+# Local configuration, certificates and credentials
+.local/
+.jc/
+.agents/
+.codex/
+.aws/
+.env
+.env.*
+!.env.example
+local.properties
+**/local.properties
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+credentials*.json
+service-account*.json
+
+# Build/dependency caches (keep the Gradle wrapper JAR)
+.gradle/
+**/build/
+node_modules/
+.wrangler/
+.dev.vars
+relay/public/
+__pycache__/
+*.py[cod]
+*.class
+*.log
+coverage/
+.nyc_output/
+
+# Local telemetry, private reference photos, artwork experiments
+spike/tiny-racers-motion*.json
+output/
+tmp/
+
+# Third-party source audio is not a standalone asset download.
+android-host/app/src/main/assets/audio/*.mp3
+marketing/**/*.mp3
+marketing/**/*.wav
+
+# Video masters, intermediate frames and large delivery bundles stay local.
+marketing/exports/videos/
+marketing/exports/frames/
+marketing/exports/*.zip
+*.mov
+*.mp4
+*.webm
+*.zip
+
+# Build artifacts are ignored except the explicit judge APK.
+*.apk
+!artifacts/tiny-racers-0.2.0-hackathon.apk
+*.aab
+
+# Owner narration takes stay local until mixed into the final demo.
+marketing/voiceover/
+
+# Internal instructions and working briefs stay local.
+AGENTS.md
+CLAUDE.md
+.gemini/
+tiny-racers-codex-brief/

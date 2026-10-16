@@ -1,0 +1,14 @@
+{
+  "name": "tiny-racers-motion-preflight",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "lan": "node lan.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}

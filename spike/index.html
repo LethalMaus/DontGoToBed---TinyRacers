@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#112437">
+<title>Don’t Go To Bed · Tiny Racers</title>
+<style>
+:root{color-scheme:dark;font-family:ui-rounded,system-ui,sans-serif;background:#112437;color:#fff1ce}
+*{box-sizing:border-box} [hidden]{display:none!important}
+body{max-width:740px;margin:auto;padding:24px 20px 40px;background:radial-gradient(ellipse at top right,#25495870,transparent 60%);min-height:100vh;-webkit-text-size-adjust:100%}
+h1{font-size:clamp(36px,8vw,52px);line-height:1;margin:8px 0 12px;letter-spacing:-2px}p{line-height:1.45}.brand{font-size:12px;font-weight:850;letter-spacing:2px;color:#ffd369;margin:0}.tagline{color:#a9c1cb;margin-top:0;font-size:15px}
+button{font:inherit;font-weight:750;min-height:52px;padding:12px 17px;border:1px solid transparent;border-radius:14px;background:#ffd369;color:#112437;touch-action:manipulation;cursor:pointer}
+button:disabled{opacity:.48;cursor:default}button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #fff1ce;outline-offset:3px}
+.secondary{background:#203f53;color:#d6e6e7;border-color:#38566b}
+.buttons{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.buttons>button{flex:1}#ready,#start{font-size:20px}
+input,select{font:inherit;min-height:44px;background:#112437;color:#fff1ce;border:1px solid #45647b;border-radius:8px;padding:8px}input[type=checkbox]{width:22px;min-height:22px;vertical-align:middle}label{display:inline-block;padding:8px 0}#token{width:130px;text-transform:lowercase;letter-spacing:2px}summary{cursor:pointer;font-weight:750;min-height:30px}
+details,.panel{background:#1c364a;border:1px solid #345168;border-radius:18px;padding:16px;margin:14px 0}details[open]>summary{margin-bottom:8px}details p{font-size:14px;color:#a9c1cb}
+#network{font-size:13px;color:#b9dfcd;margin:12px 2px}#lobby{font-size:14px;color:#a9c1cb}.step{color:#ffd369;font-size:12px;font-weight:800;letter-spacing:1.5px}.hint{font-size:13px;color:#a9c1cb}
+.racers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:12px}.racer{display:flex;align-items:center;flex-direction:column;background:#112b40;color:#fff1ce;padding:9px 4px;border:2px solid transparent;gap:6px;font-size:14px;min-width:0}.racer img{height:104px;max-width:100%;object-fit:contain;image-rendering:auto}[data-track][aria-pressed=true]{background:#ffd369;color:#112b40;box-shadow:0 0 0 2px #fff1ce}[data-track][aria-pressed=false]{background:#334c58;color:#fff1ce}.racing #track-picker,.racing #track-hint{display:none}.racer[aria-pressed=true]{border-color:#ffd369;background:#334c58;box-shadow:0 0 0 3px #ffd36915}
+#status{background:#23465a;border-radius:12px;padding:12px 14px;min-height:48px;color:#deece7;font-size:14px}#race-status:not(:empty){background:#ffd369;color:#112437;font-size:21px;font-weight:800;text-align:center;padding:18px;border-radius:16px}
+canvas{width:100%;height:36px;background:#173044;border-radius:12px;display:block}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}select{max-width:100%}
+body.racing .onboarding{display:none}body.racing h1{font-size:32px}body.racing .tagline{display:none}footer{text-align:center;color:#7f9dab;font-size:12px;margin-top:26px}
+.driver{display:flex;align-items:center;gap:18px;background:#1c364a;border-radius:16px;padding:12px 20px;font-size:22px;font-weight:800}.driver img{height:74px;width:55px;object-fit:contain}
+body.racing header,body.racing #setup,body.racing #enable,body.racing .motion-panel canvas{display:none}body.racing .motion-panel{padding:10px}body.racing .motion-panel .buttons{margin:0}body.racing #status{margin:8px 0 0}#power{min-height:76px;font-size:24px}
+body.racing #calibrate{background:#203f53;color:#fff1ce;border-color:#45647b}body.racing #race-status{background:#1c364a;color:#fff1ce;border:1px solid #345168}
+@media(orientation:landscape) and (max-height:500px){body{padding:12px 24px}h1{font-size:30px}header .tagline{display:none}.racer img{height:72px}.panel,details{margin:8px 0;padding:12px}.racers{margin-top:5px}#status{min-height:0;margin:8px 0}.buttons{margin:8px 0}}
+@media(orientation:landscape) and (max-height:500px){body.racing{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;max-width:1000px}.racing #network{grid-column:1/-1;margin:0}.racing #driver{grid-column:1;grid-row:2}.racing .motion-panel{grid-column:1;grid-row:3;margin:0}.racing #race-status{grid-column:2;grid-row:2;margin:0}.racing #power-panel{grid-column:2;grid-row:3;margin:0}.racing #power-panel .step{font-size:10px}.racing #power-panel .hint{margin:0;font-size:11px}.racing> .buttons{grid-column:1/-1;grid-row:4}.racing>details,.racing>footer{grid-column:1/-1}.racing #power{min-height:58px}}
+
+/* Child driving view: one big item button, identity and pause. */
+body.connected header,body.connected #setup,body.connected>footer,body.connected>#network{display:none}
+#options-button{float:right;min-width:112px;min-height:58px;margin-bottom:12px}
+body.connected #ready{min-height:76px;font-size:30px}body.connected #driver{background:none;padding:0 8px;min-height:60px;font-size:20px}
+body.racing{display:flex!important;flex-direction:column;padding:12px 16px;gap:8px;min-height:100dvh;max-width:740px}
+body.racing #options-button{position:absolute;right:16px;top:12px;margin:0;min-height:54px}
+body.racing #driver{padding-right:120px;margin:0;height:68px;flex-shrink:0}
+body.racing .driver img{height:58px;width:42px}
+body.racing #power-panel{display:flex;flex-direction:column;justify-content:center;flex:1;margin:0;padding:14px;border:0;background:transparent}
+body.racing #power-panel .buttons{display:flex;flex:1;margin:6px 0}
+body.racing #power{width:100%;min-height:180px;font-size:clamp(27px,7vw,46px);border-radius:32px;box-shadow:inset 0 -8px #0002,0 8px 25px #0003}
+body.racing #power:disabled{opacity:1;background:#294d60;color:#bbd1d5;box-shadow:inset 0 -6px #0002}
+body.racing #race-status{margin:0;padding:8px;font-size:18px;border:0;background:none}
+body.racing>.buttons,body.racing>.motion-panel,body.racing>details{display:none}
+body.racing.needs-motion>#race-controls{display:flex}
+#lap-picker button{background:#203f53;color:#fff1ce;border:2px solid #547080}
+#lap-picker button[aria-pressed=true]{border-color:#fff1ce;box-shadow:0 0 0 2px #ffd369}
+#lap-picker button[aria-pressed=true]::before{content:'✓ ';font-weight:900}
+#bot-picker button{background:#203f53;color:#fff1ce;border:2px solid #547080;padding:10px 6px}
+#bot-picker button[aria-pressed=true]{background:#ffd369;color:#112437;border-color:#fff1ce}
+#bot-picker button[aria-pressed=true]::before{content:'✓ '}
+body.racing #bot-picker,body.racing #bot-help{display:none}
+body.racing #power-panel .hint{text-align:center}
+dialog{color:#fff1ce;background:#1c364a;border:1px solid #6b8a99;border-radius:24px;padding:22px;max-width:560px;width:calc(100% - 28px);max-height:90dvh;overflow:auto}
+dialog::backdrop{background:#06121dcc}dialog h2{margin:0 0 18px}
+dialog .motion-panel{display:block!important}dialog .motion-panel #calibrate{min-height:60px}
+dialog .auto-option{display:flex;align-items:center;gap:14px;font-size:22px;margin-top:20px}
+dialog input[type=checkbox]{width:30px;height:30px}
+@media(orientation:landscape) and (max-height:500px){
+body.racing{display:grid!important;grid-template-columns:1fr 1.4fr;grid-template-rows:72px 1fr;max-width:100%;height:100dvh;min-height:0}
+body.racing #driver{grid-column:1;grid-row:1;padding-right:0}
+body.racing #options-button{position:static;grid-column:1;grid-row:2;align-self:start;justify-self:start}
+body.racing #power-panel{grid-column:2;grid-row:1/3;padding:0}
+body.racing #power{min-height:160px;font-size:30px}
+body.racing #race-status{grid-column:1;grid-row:2;align-self:end;font-size:16px}
+}
+#track-picker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}#track-picker button{min-width:0;padding:10px 6px;font-size:16px}#track-picker svg{display:block;width:100%;height:85px}#track-picker small{font-size:11px;display:block}#lap-picker [aria-pressed=true]{background:#ffd369;color:#112b40}.racing #lap-picker{display:none}.racer[data-character="0"] img,.racer[data-character="1"] img{transform:scale(.82);transform-origin:bottom center}.racing>.language-picker{display:none}#track-picker strong{display:block;max-width:100%;overflow-wrap:anywhere;hyphens:auto;font-size:14px}
+.rotation-tip{border:3px solid #ffd369;background:#fff1ce;color:#112437;border-radius:20px;padding:18px 20px;margin:16px 0;box-shadow:0 4px 0 #0002}
+.rotation-tip h2{color:#112437;font-size:clamp(23px,5vw,30px);line-height:1.15;margin:0 0 12px;display:flex;gap:12px;align-items:center}
+.rotation-tip .lock-icon{font-size:40px;flex-shrink:0}.rotation-tip p{font-size:18px;line-height:1.45;margin:8px 0}.rotation-tip small{display:block;font-size:16px;line-height:1.4}
+body.racing>#rotation-tip{display:none}
+</style>
+<label class="language-picker">🌐 <span>Language</span> <select id="language" aria-label="Language" style="font:inherit;padding:10px;max-width:190px"></select></label>
+<header><p class="brand">DON’T GO TO BED</p><h1>Tiny Racers<span style="color:#ffd369">.</span></h1><p class="tagline">One more adventure. This time, on wheels.</p></header>
+<details id="setup" open><summary>01 &nbsp; Join the race</summary>
+<p>Scan the TV’s QR code or enter its room code.</p>
+<label>Room code <input id="token" maxlength="32" autocomplete="off" autocapitalize="none" spellcheck="false"></label>
+<div class="buttons"><button id="connect">Connect to TV</button><button id="disconnect" class="secondary" disabled>Disconnect</button></div>
+</details>
+<p id="network" role="status">Waiting to join your TV</p>
+<button id="options-button" class="secondary" hidden aria-label="Pause and options">Ⅱ Pause</button>
+<div id="driver" class="driver" hidden><img id="driver-avatar" alt=""><span id="driver-name"></span></div>
+<section class="panel onboarding" id="garage"><span class="step">02 &nbsp; CHOOSE YOUR RACER</span>
+<div class="buttons" id="track-picker" aria-label="Choose track">
+<!-- track-previews:start -->
+<button data-track="0" aria-pressed="true" disabled><strong>Dining Table</strong><svg viewBox="0 0 300 130" role="img" aria-label="Dining Table circuit outline"><path d="M243.42 65.00 L243.39 66.40 L243.29 67.81 L243.13 69.22 L242.90 70.62 L242.62 72.03 L242.27 73.42 L241.85 74.81 L241.39 76.18 L240.95 77.59 L240.49 79.02 L239.98 80.43 L239.35 81.82 L238.56 83.15 L237.56 84.42 L236.31 85.58 L234.77 86.67 L232.97 87.70 L230.97 88.68 L228.81 89.59 L226.54 90.43 L224.20 91.19 L221.85 91.88 L219.48 92.46 L216.84 92.82 L214.01 93.01 L211.11 93.12 L208.29 93.26 L205.66 93.50 L203.36 93.94 L201.52 94.67 L200.26 95.72 L199.50 97.05 L199.08 98.56 L198.85 100.19 L198.64 101.85 L198.31 103.48 L197.69 105.00 L196.69 106.37 L195.49 107.72 L194.16 109.07 L192.70 110.37 L191.12 111.62 L189.43 112.77 L187.64 113.81 L185.75 114.69 L183.72 115.41 L181.53 115.99 L179.21 116.44 L176.80 116.80 L174.34 117.10 L171.87 117.37 L169.43 117.62 L167.03 117.89 L164.62 118.12 L162.20 118.32 L159.77 118.49 L157.32 118.62 L154.88 118.71 L152.44 118.77 L150.00 118.79 L147.56 118.77 L145.12 118.71 L142.68 118.62 L140.23 118.49 L137.80 118.32 L135.38 118.12 L132.97 117.89 L130.57 117.62 L128.13 117.37 L125.66 117.10 L123.20 116.80 L120.79 116.44 L118.47 115.99 L116.28 115.41 L114.25 114.69 L112.36 113.81 L110.57 112.77 L108.88 111.62 L107.30 110.37 L105.84 109.07 L104.51 107.72 L103.31 106.37 L102.31 105.00 L101.69 103.48 L101.36 101.85 L101.15 100.19 L100.92 98.56 L100.50 97.05 L99.74 95.72 L98.48 94.67 L96.64 93.94 L94.34 93.50 L91.71 93.26 L88.89 93.12 L85.99 93.01 L83.16 92.82 L80.52 92.46 L78.15 91.88 L75.80 91.19 L73.46 90.43 L71.19 89.59 L69.03 88.68 L67.03 87.70 L65.23 86.67 L63.69 85.58 L62.44 84.42 L61.44 83.15 L60.65 81.82 L60.02 80.43 L59.51 79.02 L59.05 77.59 L58.61 76.18 L58.15 74.81 L57.73 73.42 L57.38 72.03 L57.10 70.62 L56.87 69.22 L56.71 67.81 L56.61 66.40 L56.58 65.00 L56.61 63.60 L56.71 62.19 L56.87 60.78 L57.10 59.38 L57.38 57.97 L57.73 56.58 L58.15 55.19 L58.61 53.82 L59.05 52.41 L59.51 50.98 L60.02 49.57 L60.65 48.18 L61.44 46.85 L62.44 45.58 L63.69 44.42 L65.23 43.33 L67.03 42.30 L69.03 41.32 L71.19 40.41 L73.46 39.57 L75.80 38.81 L78.15 38.12 L80.52 37.54 L83.16 37.18 L85.99 36.99 L88.89 36.88 L91.71 36.74 L94.34 36.50 L96.64 36.06 L98.48 35.33 L99.74 34.28 L100.50 32.95 L100.92 31.44 L101.15 29.81 L101.36 28.15 L101.69 26.52 L102.31 25.00 L103.31 23.63 L104.51 22.28 L105.84 20.93 L107.30 19.63 L108.88 18.38 L110.57 17.23 L112.36 16.19 L114.25 15.31 L116.28 14.59 L118.47 14.01 L120.79 13.56 L123.20 13.20 L125.66 12.90 L128.13 12.63 L130.57 12.38 L132.97 12.11 L135.38 11.88 L137.80 11.68 L140.23 11.51 L142.68 11.38 L145.12 11.29 L147.56 11.23 L150.00 11.21 L152.44 11.23 L154.88 11.29 L157.32 11.38 L159.77 11.51 L162.20 11.68 L164.62 11.88 L167.03 12.11 L169.43 12.38 L171.87 12.63 L174.34 12.90 L176.80 13.20 L179.21 13.56 L181.53 14.01 L183.72 14.59 L185.75 15.31 L187.64 16.19 L189.43 17.23 L191.12 18.38 L192.70 19.63 L194.16 20.93 L195.49 22.28 L196.69 23.63 L197.69 25.00 L198.31 26.52 L198.64 28.15 L198.85 29.81 L199.08 31.44 L199.50 32.95 L200.26 34.28 L201.52 35.33 L203.36 36.06 L205.66 36.50 L208.29 36.74 L211.11 36.88 L214.01 36.99 L216.84 37.18 L219.48 37.54 L221.85 38.12 L224.20 38.81 L226.54 39.57 L228.81 40.41 L230.97 41.32 L232.97 42.30 L234.77 43.33 L236.31 44.42 L237.56 45.58 L238.56 46.85 L239.35 48.18 L239.98 49.57 L240.49 50.98 L240.95 52.41 L241.39 53.82 L241.85 55.19 L242.27 56.58 L242.62 57.97 L242.90 59.38 L243.13 60.78 L243.29 62.19 L243.39 63.60 L243.42 65.00 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><circle cx="243.4190710728883" cy="65.0" r="6" fill="#81e478" stroke="#112b40" stroke-width="2"/></svg><small>Flowing · table edges</small></button>
+<button data-track="1" aria-pressed="false" disabled><strong>Garden</strong><svg viewBox="0 0 300 130" role="img" aria-label="Garden circuit outline"><path d="M110.73 29.31 L112.08 28.59 L113.43 27.72 L114.79 26.73 L116.15 25.66 L117.53 24.53 L118.91 23.38 L120.30 22.22 L121.71 21.10 L123.13 20.04 L124.57 19.06 L126.03 18.20 L127.50 17.49 L129.01 16.95 L130.54 16.62 L132.11 16.53 L133.74 16.71 L135.43 17.11 L137.15 17.69 L138.90 18.41 L140.67 19.22 L142.45 20.07 L144.21 20.94 L145.96 21.77 L147.68 22.52 L149.35 23.15 L150.97 23.62 L152.53 23.88 L154.01 23.90 L155.39 23.62 L156.67 23.05 L157.87 22.24 L158.99 21.24 L160.06 20.09 L161.09 18.84 L162.11 17.54 L163.13 16.25 L164.16 15.00 L165.23 13.84 L166.35 12.83 L167.53 12.02 L168.81 11.44 L170.19 11.16 L171.69 11.18 L173.35 11.41 L175.14 11.82 L177.03 12.39 L179.00 13.11 L181.01 13.96 L183.04 14.92 L185.07 15.97 L187.06 17.10 L188.99 18.29 L190.83 19.52 L192.55 20.77 L194.13 22.03 L195.55 23.28 L196.79 24.52 L197.96 25.85 L199.07 27.27 L200.12 28.76 L201.10 30.31 L201.99 31.91 L202.80 33.55 L203.51 35.21 L204.12 36.87 L204.61 38.53 L204.99 40.16 L205.23 41.77 L205.35 43.33 L205.32 44.82 L205.12 46.25 L204.57 47.63 L203.70 48.99 L202.55 50.31 L201.21 51.62 L199.73 52.90 L198.18 54.17 L196.62 55.43 L195.11 56.68 L193.72 57.92 L192.51 59.17 L191.55 60.41 L190.90 61.67 L190.63 62.94 L190.79 64.22 L191.42 65.49 L192.47 66.74 L193.86 67.97 L195.53 69.20 L197.41 70.42 L199.43 71.65 L201.53 72.88 L203.63 74.13 L205.67 75.40 L207.59 76.70 L209.30 78.03 L210.76 79.40 L211.88 80.82 L212.60 82.28 L213.06 83.85 L213.36 85.52 L213.51 87.29 L213.50 89.11 L213.36 90.98 L213.08 92.86 L212.67 94.73 L212.15 96.58 L211.52 98.37 L210.79 100.08 L209.96 101.70 L209.04 103.19 L208.05 104.53 L206.98 105.71 L205.77 106.77 L204.35 107.77 L202.76 108.71 L201.03 109.57 L199.18 110.35 L197.24 111.05 L195.24 111.66 L193.19 112.18 L191.14 112.59 L189.11 112.90 L187.12 113.09 L185.21 113.16 L183.39 113.11 L181.70 112.93 L180.11 112.51 L178.58 111.75 L177.08 110.72 L175.63 109.47 L174.21 108.06 L172.81 106.56 L171.43 105.03 L170.07 103.52 L168.71 102.09 L167.36 100.82 L166.00 99.74 L164.64 98.93 L163.26 98.45 L161.86 98.35 L160.46 98.69 L159.07 99.46 L157.70 100.60 L156.35 102.03 L154.99 103.70 L153.64 105.53 L152.28 107.45 L150.91 109.42 L149.52 111.35 L148.10 113.18 L146.66 114.85 L145.18 116.29 L143.66 117.43 L142.09 118.21 L140.47 118.63 L138.77 118.83 L137.01 118.84 L135.19 118.68 L133.34 118.37 L131.46 117.91 L129.57 117.34 L127.67 116.67 L125.78 115.91 L123.91 115.09 L122.07 114.21 L120.27 113.31 L118.53 112.39 L116.85 111.47 L115.22 110.55 L113.52 109.56 L111.78 108.48 L110.01 107.34 L108.24 106.13 L106.50 104.86 L104.80 103.55 L103.18 102.20 L101.66 100.81 L100.26 99.40 L99.01 97.98 L97.94 96.54 L97.07 95.10 L96.43 93.67 L96.05 92.25 L96.05 90.78 L96.39 89.25 L97.01 87.69 L97.85 86.10 L98.85 84.49 L99.95 82.86 L101.09 81.24 L102.21 79.62 L103.25 78.02 L104.14 76.45 L104.84 74.92 L105.28 73.43 L105.40 72.00 L105.14 70.64 L104.50 69.35 L103.55 68.11 L102.33 66.93 L100.90 65.79 L99.32 64.68 L97.64 63.58 L95.90 62.50 L94.18 61.43 L92.51 60.34 L90.96 59.24 L89.58 58.11 L88.43 56.94 L87.55 55.72 L87.00 54.45 L86.67 53.09 L86.50 51.64 L86.48 50.13 L86.60 48.57 L86.84 46.98 L87.19 45.39 L87.64 43.80 L88.18 42.25 L88.80 40.75 L89.49 39.31 L90.23 37.97 L91.01 36.73 L91.82 35.62 L92.65 34.66 L93.56 33.87 L94.57 33.23 L95.68 32.73 L96.87 32.33 L98.13 32.02 L99.45 31.78 L100.81 31.57 L102.21 31.39 L103.64 31.19 L105.08 30.97 L106.52 30.69 L107.95 30.34 L109.35 29.89 L110.73 29.31 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><circle cx="110.72660704587281" cy="29.31338816582403" r="6" fill="#81e478" stroke="#112b40" stroke-width="2"/></svg><small>Twisty · garden bends</small></button>
+<button data-track="2" aria-pressed="false" disabled><strong>Bedroom</strong><svg viewBox="0 0 300 130" role="img" aria-label="Bedroom circuit outline"><path d="M99.89 20.09 L102.85 18.57 L105.42 17.09 L107.84 15.71 L110.31 14.48 L113.07 13.44 L116.31 12.65 L120.37 12.13 L125.26 11.86 L130.54 11.80 L135.77 11.91 L140.49 12.14 L144.27 12.44 L146.81 12.83 L148.47 13.39 L149.46 14.08 L149.94 14.84 L150.09 15.62 L150.08 16.38 L150.05 17.08 L149.91 17.83 L149.54 18.62 L148.87 19.38 L147.83 20.05 L146.34 20.60 L144.28 20.95 L141.26 21.05 L137.55 20.96 L133.56 20.80 L129.69 20.67 L126.36 20.68 L123.95 20.93 L122.26 21.41 L121.06 22.05 L120.26 22.78 L119.79 23.56 L119.56 24.34 L119.51 25.05 L119.49 25.78 L119.56 26.56 L119.89 27.33 L120.66 28.06 L122.04 28.67 L124.21 29.12 L127.62 29.33 L132.32 29.32 L137.71 29.17 L143.20 29.02 L148.18 28.95 L152.04 29.08 L154.51 29.47 L156.12 30.04 L157.06 30.73 L157.50 31.50 L157.63 32.28 L157.62 33.03 L157.59 33.73 L157.43 34.49 L157.04 35.28 L156.35 36.03 L155.28 36.70 L153.75 37.24 L151.62 37.56 L148.51 37.58 L144.74 37.40 L140.72 37.18 L136.87 37.04 L133.63 37.15 L131.36 37.65 L129.64 38.53 L128.31 39.68 L127.44 40.99 L127.12 42.35 L127.41 43.65 L128.39 44.78 L130.27 45.91 L132.97 47.09 L136.24 48.21 L139.83 49.19 L143.52 49.91 L147.05 50.28 L150.60 50.31 L154.40 50.09 L158.31 49.62 L162.17 48.90 L165.86 47.93 L169.21 46.71 L172.12 45.09 L174.65 42.94 L176.96 40.48 L179.18 37.97 L181.46 35.65 L183.95 33.76 L186.80 32.34 L190.01 31.01 L193.38 29.88 L196.73 29.09 L199.87 28.79 L202.59 29.12 L204.80 30.28 L206.86 32.44 L208.70 35.34 L210.16 38.61 L211.12 41.92 L211.41 44.94 L210.82 47.37 L208.73 49.47 L205.60 51.39 L202.10 53.17 L198.90 54.87 L196.70 56.54 L196.14 58.22 L197.10 60.10 L199.11 62.09 L201.87 64.00 L205.05 65.63 L208.33 66.78 L211.42 67.26 L214.58 66.66 L218.06 65.11 L221.69 63.13 L225.29 61.22 L228.69 59.90 L231.73 59.67 L234.51 60.71 L237.26 62.63 L239.83 65.17 L242.07 68.10 L243.84 71.18 L244.99 74.15 L245.42 77.06 L245.23 80.28 L244.52 83.66 L243.37 87.01 L241.90 90.11 L240.19 92.79 L238.24 94.96 L235.79 96.89 L232.97 98.55 L229.95 99.87 L226.89 100.79 L223.97 101.21 L221.31 100.99 L218.72 99.62 L216.16 97.48 L213.66 95.12 L211.25 93.07 L208.94 91.85 L206.78 91.99 L204.90 93.47 L203.23 95.89 L201.62 98.86 L199.93 101.99 L198.01 104.89 L195.72 107.18 L192.98 109.31 L189.91 111.49 L186.65 113.50 L183.36 115.12 L180.17 116.12 L177.24 116.30 L174.57 115.16 L172.05 112.75 L169.64 109.71 L167.28 106.67 L164.92 104.26 L162.52 103.12 L160.08 103.75 L157.68 105.83 L155.27 108.74 L152.85 111.85 L150.38 114.52 L147.85 116.12 L145.23 116.13 L142.52 114.78 L139.75 112.63 L136.96 110.24 L134.15 108.17 L131.35 106.97 L128.59 107.18 L125.87 108.73 L123.16 111.10 L120.44 113.76 L117.69 116.17 L114.87 117.81 L111.97 118.14 L108.98 117.17 L105.92 115.35 L102.82 113.13 L99.71 110.98 L96.60 109.36 L93.52 108.72 L90.43 109.29 L87.31 110.65 L84.20 112.32 L81.12 113.81 L78.09 114.65 L75.14 114.34 L71.95 112.79 L68.50 110.36 L65.11 107.34 L62.09 104.02 L59.76 100.70 L58.44 97.65 L58.59 94.89 L60.14 92.13 L62.48 89.37 L64.96 86.62 L66.96 83.86 L67.84 81.10 L67.10 78.34 L65.01 75.58 L62.16 72.82 L59.13 70.06 L56.50 67.30 L54.86 64.54 L54.62 61.69 L55.33 58.50 L56.74 55.19 L58.62 52.03 L60.76 49.29 L62.94 47.23 L65.04 46.18 L67.61 46.45 L70.49 47.61 L73.41 49.08 L76.06 50.31 L78.16 50.74 L79.40 49.84 L79.42 47.63 L78.60 44.53 L77.46 40.93 L76.55 37.23 L76.40 33.80 L77.53 31.04 L80.06 28.77 L83.59 26.74 L87.72 24.91 L92.08 23.22 L96.26 21.63 L99.89 20.09 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><circle cx="99.89005714476897" cy="20.093325214716607" r="6" fill="#81e478" stroke="#112b40" stroke-width="2"/><path d="M151.76 113.13 L141.78 114.25" stroke="#61e2db" stroke-width="2"/><path d="M60.99 102.57 L60.16 92.11" stroke="#61e2db" stroke-width="2"/></svg><small>Hairpins · 2 shortcuts</small></button>
+<!-- track-previews:end --></div>
+<div id="lap-picker" class="buttons" aria-label="Number of laps"><button data-laps="1" aria-pressed="true" disabled>1 lap</button><button data-laps="2" aria-pressed="false" disabled>2 laps</button><button data-laps="3" aria-pressed="false" disabled>3 laps</button></div>
+<p id="bot-help" class="hint">Play solo or add bots. Up to four racers in total.</p>
+<div id="bot-picker" class="buttons" aria-label="Computer opponents"><button data-bots="0" aria-pressed="true" disabled>No bots</button><button data-bots="1" aria-pressed="false" disabled>1 bot</button><button data-bots="2" aria-pressed="false" disabled>2 bots</button><button data-bots="3" aria-pressed="false" disabled>3 bots</button></div>
+<p class="hint" id="track-hint">Flowing · table edges</p>
+<div class="racers" aria-label="Choose your racer">
+<button class="racer" data-character="0" aria-pressed="false" disabled><img src="/assets/leo_front.png" alt="">Leo</button>
+<button class="racer" data-character="1" aria-pressed="false" disabled><img src="/assets/ian_front.png" alt="">Ian</button>
+<button class="racer" data-character="2" aria-pressed="false" disabled><img src="/assets/papa_front.png" alt="">Daddy</button>
+<button class="racer" data-character="3" aria-pressed="false" disabled><img src="/assets/mammy.png" alt="">Mammy</button>
+</div><p id="lobby" role="status">Your family. Your racer. Your adventure.</p></section>
+<section class="panel motion-panel"><span class="step onboarding">03 &nbsp; FIND YOUR STRAIGHT AHEAD</span>
+
+<div class="buttons"><button id="enable" class="secondary">Enable motion</button><button id="calibrate" disabled>Set straight ahead</button></div>
+<p id="status" role="status">Checking motion controls…</p>
+<canvas id="preview" width="850" height="160" aria-label="Your steering position"></canvas>
+</section>
+<p id="race-status" role="status"></p>
+<div id="power-panel" hidden class="panel"><span class="step" id="item-mode">AUTOMATIC ITEMS ON</span><div class="buttons"><button id="power" disabled>Collect a gift on the track</button></div><p class="hint"><span id="item-help">Your item fires for you. You can tap too!</span></p></div>
+<aside id="rotation-tip" class="rotation-tip" aria-labelledby="rotation-tip-title">
+<h2 id="rotation-tip-title"><span class="lock-icon" aria-hidden="true">🔒</span><span>Lock screen rotation before you race</span></h2>
+<p>Turn on Rotation Lock or turn off Auto-rotate in your device’s quick settings. Then return here and tap Ready.</p>
+<small>You can still tilt and turn to steer. Only the screen layout is locked.</small>
+</aside>
+<div id="race-controls" class="buttons"><button id="ready" disabled>Ready!</button><button id="start" disabled>Start race</button><button id="back" class="secondary" hidden>Back to lobby</button></div>
+<p id="ready-help" class="hint onboarding">Tap Ready, then hold your steering wheel straight. Motion access may need one permission tap.</p>
+<p class="hint onboarding">Stay together. Last racer standing scores. Most points after the selected laps wins!</p>
+<details><summary>Connection &amp; controls</summary><div class="buttons"><button id="leave" class="secondary" disabled>Leave lobby</button></div><p>After switching apps, reconnect and set straight ahead again.</p></details>
+<details><summary>Save a test result</summary>
+<button id="reset">Reset measurement</button>
+<label>What happened? <select id="observation" style="font:inherit;padding:12px">
+<option value="not-tested">Not tested yet</option>
+<option value="motion-responsive">Turning steers the TV responsively</option>
+<option value="wrong-direction">Steering direction is wrong</option>
+<option value="lag-or-jitter">Steering lags or jitters</option>
+<option value="permission-blocked">Motion permission is blocked</option>
+<option value="network-blocked">Cannot connect to TV</option>
+</select></label>
+<button id="save">Save report to Mac</button>
+<button id="export">Export diagnostic JSON</button>
+<p>For a noise measurement, hold still for 10 seconds after resetting. Steering variation during movement is not sensor jitter.</p>
+</details>
+<details><summary>Developer diagnostics</summary>
+<label><input id="invert" type="checkbox" checked> Invert steering</label><br>
+<label><input id="synthetic" type="checkbox"> Developer test sweep (synthetic)</label>
+<p>Keep the test sweep off for real motion testing. The sweep tests networking without using sensors.</p>
+<pre id="metrics"></pre>
+<pre id="network-metrics"></pre>
+</details>
+<dialog id="straight-dialog" aria-labelledby="straight-title">
+<div style="font-size:76px;text-align:center" aria-hidden="true">🛞</div>
+<h2 id="straight-title" style="text-align:center;font-size:30px">Hold your steering wheel straight</h2>
+<p id="straight-hint" style="text-align:center;font-size:22px" role="status">Hold it still for a moment…</p>
+<button id="straight-cancel" class="secondary" style="width:100%">Not yet</button>
+</dialog>
+<dialog id="options-menu" aria-labelledby="pause-title">
+<h2 id="pause-title">Options</h2>
+<button id="resume" style="width:100%;font-size:26px">▶ Let’s go!</button>
+<label class="auto-option"><input id="auto-items" type="checkbox" checked> Use items for me</label>
+<label class="auto-option"><input id="shake-items" type="checkbox" checked> Shake to use an item</label>
+<p class="hint">Turn this off to tap your item yourself.</p>
+<label for="sensitivity" style="display:block;font-size:22px;margin-top:18px">Steering sensitivity <output id="sensitivity-value">50%</output></label>
+<input id="sensitivity" type="range" min="50" max="200" step="10" value="50" style="width:100%;min-height:54px" aria-describedby="sensitivity-help">
+<p id="sensitivity-help" class="hint">Gentle ← &nbsp; → Quick<br>Higher means less turning of the phone.</p>
+<button id="reset-sensitivity" class="secondary">Reset to gentle (50%)</button>
+<label class="auto-option"><span>TV language</span> <select id="tv-language" aria-label="TV language" style="font:inherit;padding:10px" disabled></select></label>
+<aside class="rotation-tip" aria-labelledby="rotation-pause-title">
+<h2 id="rotation-pause-title"><span class="lock-icon" aria-hidden="true">🔒</span><span>Lock screen rotation before you race</span></h2>
+<p>Turn on Rotation Lock or turn off Auto-rotate in your device’s quick settings. Then return here and tap Ready.</p>
+<small>You can still tilt and turn to steer. Only the screen layout is locked.</small>
+</aside>
+<div id="pause-controls"></div>
+</dialog>
+<script type="module" src="/controller.mjs"></script>
+<footer>Made for one more adventure together.</footer>
+</html>

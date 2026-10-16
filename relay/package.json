@@ -1,0 +1,16 @@
+{
+  "name": "tiny-racers-relay",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "assets": "node prepare-assets.mjs",
+    "test": "node --test *.test.mjs",
+    "dev": "npm run assets && wrangler dev",
+    "deploy": "npm run assets && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.151.1",
+    "ws": "8.21.0"
+  },
+  "license": "MIT"
+}

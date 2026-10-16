@@ -1,0 +1,107 @@
+{
+  "duration": 119,
+  "segments": [
+    {
+      "kind": "card",
+      "source": "tutorial",
+      "duration": 5,
+      "start": 0
+    },
+    {
+      "kind": "card",
+      "source": "setup",
+      "duration": 10,
+      "start": 5
+    },
+    {
+      "kind": "game",
+      "source": "bedroom",
+      "start": 15,
+      "duration": 4,
+      "label": "SCAN THE TV\u2019S QR CODE",
+      "sourceStart": 0
+    },
+    {
+      "kind": "phone",
+      "source": "controller",
+      "start": 19,
+      "duration": 8,
+      "label": "1. CONNECT TO YOUR TV",
+      "sourceStart": 0
+    },
+    {
+      "kind": "phone",
+      "source": "controller",
+      "start": 27,
+      "duration": 11,
+      "label": "2. CHOOSE YOUR RACE",
+      "sourceStart": 8
+    },
+    {
+      "kind": "phone",
+      "source": "controller",
+      "start": 38,
+      "duration": 11,
+      "label": "3. TAP READY AND HOLD STILL",
+      "sourceStart": 19
+    },
+    {
+      "kind": "game",
+      "source": "dining",
+      "start": 49,
+      "duration": 10,
+      "label": "4. TURN GENTLY TO STEER",
+      "sourceStart": 7
+    },
+    {
+      "kind": "game",
+      "source": "dining",
+      "start": 59,
+      "duration": 10,
+      "label": "ITEMS WORK AUTOMATICALLY",
+      "sourceStart": 27
+    },
+    {
+      "kind": "phone",
+      "source": "controller",
+      "start": 69,
+      "duration": 16,
+      "label": "PAUSE TO CHANGE YOUR OPTIONS",
+      "sourceStart": 39
+    },
+    {
+      "kind": "card",
+      "source": "rules",
+      "duration": 8,
+      "start": 85
+    },
+    {
+      "kind": "game",
+      "source": "dining",
+      "start": 93,
+      "duration": 10,
+      "label": "LAST SURVIVOR SCORES; EVERYONE RETURNS",
+      "sourceStart": 120
+    },
+    {
+      "kind": "game",
+      "source": "bedroom",
+      "start": 103,
+      "duration": 8,
+      "label": "MOST POINTS WINS",
+      "sourceStart": 241
+    },
+    {
+      "kind": "card",
+      "source": "finish",
+      "duration": 4,
+      "start": 111
+    },
+    {
+      "kind": "card",
+      "source": "credits",
+      "duration": 4,
+      "start": 115
+    }
+  ]
+}
